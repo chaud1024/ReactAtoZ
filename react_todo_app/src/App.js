@@ -48,9 +48,23 @@ export default class App extends Component {
     this.setState({ todoData : newTodoData});
   }
 
-  handleChange = (e) => {
+  handleChange = (e) => { // get an event
     // console.log('e', e.target.value) 
     this.setState({ value: e.target.value });
+  }
+
+  handleSubmit = (e) => { // get an event
+    e.preventDefault();
+
+    // creating new todo
+    let newTodo = {
+      id: Date.now(),
+      title: this.state.value,
+      completed: false,
+    }
+
+    // updating newTodo into the original todoData
+    this.setState({ todoData: [...this.state.todoData, newTodo] })
   }
 
   render() {
@@ -70,7 +84,7 @@ export default class App extends Component {
           </div>
           ))}
           
-          <form style={{ display : "flex" }}>
+          <form style={{ display : "flex" }} onSubmit={this.handleSubmit}>
             <input
               type="text"
               name="value"
@@ -84,6 +98,7 @@ export default class App extends Component {
               value="입력"
               className="btn"
               style={{ flex: '1'}}
+
             />
           </form>
 
