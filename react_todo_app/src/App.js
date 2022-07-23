@@ -20,7 +20,8 @@ export default class App extends Component {
         title: "노션세팅",
         completed: false,
       }
-    ]
+    ],
+    value : ""
   }
 
   btnStyle = {
@@ -47,6 +48,11 @@ export default class App extends Component {
     this.setState({ todoData : newTodoData});
   }
 
+  handleChange = (e) => {
+    // console.log('e', e.target.value) 
+    this.setState({ value: e.target.value });
+  }
+
   render() {
     return (
       <div className="container">
@@ -70,7 +76,8 @@ export default class App extends Component {
               name="value"
               style={{ flex: '10', padding: '5px'}}
               placeholder="해야 할 일을 입력하세요."
-              value=""
+              value={this.state.value} // the value which in the state above
+              onChange={this.handleChange}
             />
             <input
               type="submit"
