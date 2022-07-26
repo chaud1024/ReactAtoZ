@@ -2,10 +2,12 @@ import React from 'react'
 
 const Form = ({ value, setValue, handleSubmit }) => {
 
-    const handleChange = (e) => { // get an event
-        // console.log('e', e.target.value) 
-        setValue(e.target.value);
-    }
+  console.log('Form Component');
+
+  const handleChange = (e) => { // get an event
+      // console.log('e', e.target.value) 
+      setValue(e.target.value);
+  }
 
   return (
     <div>
