@@ -3,7 +3,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import List from './List';
 
 const Lists = React.memo(({ todoData, setTodoData, handleClick }) => {
-    console.log('Lists Component');
+
     const handleEnd = (result) => {
         // parameter result has drag event  information such as source and destination, etc.
         // console.log('result', result);
@@ -23,6 +23,8 @@ const Lists = React.memo(({ todoData, setTodoData, handleClick }) => {
         newTodoData.splice(result.destination.index, 0, reorderedItem);
 
         setTodoData(newTodoData);
+
+        localStorage.setItem('todoData', JSON.stringify(newTodoData));
     }
 
   return (
