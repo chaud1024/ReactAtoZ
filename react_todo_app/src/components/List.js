@@ -7,8 +7,6 @@ const List = React.memo(({
     const [isEditing, setIsEditing] = useState(false);
     const [editiedTitle, setEditiedTitle] = useState(title);
 
-    
-
     const handleCompleteChange = (id) => {
         let newTodoData = todoData.map(data => {
           if(data.id === id) {
