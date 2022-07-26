@@ -16,7 +16,7 @@ export default function App() {
     setTodoData(newTodoData);
   }, [todoData]);
 
-  
+
   const handleSubmit = (e) => { // get an event
     e.preventDefault();
 
@@ -30,7 +30,12 @@ export default function App() {
     // updating newTodo into the original todoData
     setTodoData(prev => [...prev, newTodo]);
     setValue("");
-}
+  }
+
+  const handleRemoveClick = () => {
+    setTodoData([]);
+  }
+
 
     return (
       <div className="flex items-center justify-center w-screen h-screen bg-blue-100">
@@ -38,6 +43,12 @@ export default function App() {
 
           <div className="flex justify-between mb-3">
             <h1>할 일 목록</h1>
+            <button
+              onClick={handleRemoveClick}
+              className="p-2 text-red-400 border-2 border-red-400 rounded hover:text-white hover:bg-red-400"
+            >
+              Delete All
+            </button>
           </div>
 
           <Lists
