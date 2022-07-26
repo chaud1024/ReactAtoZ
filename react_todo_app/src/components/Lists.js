@@ -1,24 +1,8 @@
 import React from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import List from './List';
 
 const Lists = ({ todoData, setTodoData }) => {
-
-
-    const handleClick = (id) => { // data.id to the parameter(which I clicked THAT id)
-        let newTodoData = todoData.filter(data => data.id !== id); // (id: THAT id what I clicked)
-        setTodoData(newTodoData);
-    }
-
-    const handleCompleteChange = (id) => {
-        let newTodoData = todoData.map(data => {
-          if(data.id === id) {
-            data.completed = !data.completed;
-          }
-          return data;
-        })
-    
-        setTodoData(newTodoData);
-    }
 
     const handleEnd = (result) => {
         // parameter result has drag event  information such as source and destination, etc.
@@ -27,7 +11,7 @@ const Lists = ({ todoData, setTodoData }) => {
 
         if(!result.destination) return;
 
-        // to keep react consistency, create new todoData
+        // to keep react immutability, create new todoData
         const newTodoData = todoData;
 
         //1. remove the item that will be changed from the array
@@ -37,7 +21,7 @@ const Lists = ({ todoData, setTodoData }) => {
 
         // insert the reorderedItem where you want to put it
         newTodoData.splice(result.destination.index, 0, reorderedItem);
-        
+
         setTodoData(newTodoData);
     }
 
@@ -55,31 +39,16 @@ const Lists = ({ todoData, setTodoData }) => {
                             index={index}
                         >
                             {(provided, snapshot) => (
-                                <div
+                                <List
                                     key={data.id}
-                                    {...provided.draggableProps}
-                                    ref={provided.innerRef}
-                                    {...provided.dragHandleProps}
-                                    className={`${snapshot.isDragging ? "bg-gray-400" : "bg-gray-100"} flex items-center justify-between w-full px-4 py-4 my-2 text-gray-600 border rounded`}
-                                >
-                                
-                                    <div className='items-center'>
-                                        <input
-                                            type="checkbox"
-                                            defaultChecked={false}
-                                            onChange={() => handleCompleteChange(data.id)}
-                                            className="mr-2"
-                                        />
-                                        <span className={data.completed ? 'line-through' : undefined}>
-                                        {data.title}    
-                                        </span>
-                                    </div>
-
-                                    <div className='items-center'>
-                                        <button onClick={() => handleClick(data.id)}>X</button>
-                                    </div>
-                                
-                                </div>
+                                    id={data.id}
+                                    title={data.title}
+                                    completed={data.completed}
+                                    todoData={todoData}
+                                    setTodoData={setTodoData}
+                                    provided={provided}
+                                    snapshot={snapshot}
+                                />
                             )}
                         </Draggable>
                     ))}
