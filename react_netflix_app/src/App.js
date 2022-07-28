@@ -1,11 +1,12 @@
+import Banner from "./components/Banner";
 import Nav from "./components/Nav";
 
 function App() {
-  const key = process.env.REACT_APP_APIKEY
 
   return (
     <div>
       <Nav />
+      <Banner />
     </div>
   );
 }
