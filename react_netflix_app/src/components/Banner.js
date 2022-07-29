@@ -36,11 +36,11 @@ const Banner = () => {
         return str?.length > n ? str.substr(0, n-1) + "..." : str;
     }
 
-  return (
+  return movie.length != 0 ? (
     <header
         className='banner'
         style={{
-            backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}")`,
+            backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie?.backdrop_path}")`,
             backgroundPosition : "top center",
             backgroundSize: "cover"
         }}
@@ -61,7 +61,7 @@ const Banner = () => {
         </div>
         <div className='banner--fadeBottom' />
     </header>
-  )
+  ):<div></div>
 }
 
 export default Banner
