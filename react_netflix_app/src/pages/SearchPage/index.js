@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
 import axios from '../../api/axios';
+import useDebounce from '../../hooks/useDebounce';
+
+import './SearchPage.css';
 
 const SearchPage = () => {
 
@@ -12,13 +15,14 @@ const SearchPage = () => {
     let query = useQuery();
     const searchTerm = query.get("q");
     // console.log('searchTerm', searchTerm);
+    const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
     useEffect(() => {
-        console.log('searchTerm', searchTerm);
-        if(searchTerm) {
-            fetchSearchMovie(searchTerm);
+        // console.log('searchTerm', searchTerm);
+        if(debouncedSearchTerm) {
+            fetchSearchMovie(debouncedSearchTerm);
         }
-    }, [searchTerm]);
+    }, [debouncedSearchTerm]);
     
     const fetchSearchMovie = async (searchTerm) => {
         try {
@@ -32,14 +36,14 @@ const SearchPage = () => {
         }
     }
 
-    const renderSearchResuslts = () => {
-        return searchResults.length > 0? (
+    const renderSearchResults = () => {
+        return searchResults.length > 0 ? (
             <section className='search-container'>
                 {searchResults.map((movie) => {
                     if(movie.backdrop_path !== null && movie.media_type !== "person") {
                         const movieImageUrl = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path
                         return (
-                            <div className="movie">
+                            <div className="movie" key={movie.id}>
                                 <div className="movie__column-poster">
                                     <img
                                         src={movieImageUrl}
@@ -56,7 +60,7 @@ const SearchPage = () => {
             <section className="no-results">
                 <div className="no-results__text">
                     <p>
-                        찾고자 하는 검색어 "{searchTerm}"에 맞는 영화가 없습니다.
+                        찾고자 하는 검색어 "{debouncedSearchTerm}"에 맞는 영화가 없습니다.
                     </p>
                 </div>
             </section>
@@ -65,7 +69,7 @@ const SearchPage = () => {
 
 
   return (
-        renderSearchResuslts()
+    renderSearchResults()
   )
 }
 
