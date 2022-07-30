@@ -1,7 +1,6 @@
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import { Outlet, Routes, Route } from "react-router-dom";
-
 import SearchPage from "./pages/SearchPage";
 import MainPage from "./pages/MainPage";
 import DetailPage from "./pages/DetailPage";
@@ -12,9 +11,7 @@ const Layout = () => {
   return(
     <div>
       <Nav />
-
       <Outlet />
-
       <Footer />
     </div>
   )
