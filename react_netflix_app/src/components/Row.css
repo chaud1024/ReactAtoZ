@@ -1,9 +1,10 @@
-.row {
-    margin-left: 20px;
+  .row {
+    margin : 64px 0;
     color: white;
   }
   h2 {
     padding-left: 20px;
+    margin-bottom: 24px;
   }
   .slider {
     position: relative;
@@ -133,7 +134,8 @@
   }
   
   .swiper-pagination {
-    text-align: right !important;
+    /* text-align: right !important; */
+    display : none;
   }
   
   .swiper-pagination-bullet {
